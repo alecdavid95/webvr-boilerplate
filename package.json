@@ -14,6 +14,9 @@
     "derequire": "latest",
     "watchify": "latest"
   },
+  "scripts": {
+  "start": "node index.html"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/googlevr/webvr-boilerplate.git"
