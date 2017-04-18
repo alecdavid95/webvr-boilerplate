@@ -1,7 +1,42 @@
-# WebVR Boilerplate
+# Escape!
 
-A [THREE.js][three]-based starting point for cross-platform web-based VR
-experiences.
+A [THREE.js][three]-based web-based VR experience for Computer Graphics Project
+
+
+#Created By
+
+[Alex Boyd][alexboyd]
+Tzvi Zeller
+Alec Myers
+
+[alexboyd] https://malexanderboyd.github.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Notes from Boilerplate Author: 
 
 This project relies heavily on the [WebVR Polyfill][polyfill] to provide VR
 support if the [WebVR API][spec] is not implemented. It also uses the [WebVR

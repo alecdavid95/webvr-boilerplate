@@ -264,9 +264,9 @@ function animate(timestamp) {
   var delta = Math.min(timestamp - lastRenderTime, 500);
   lastRenderTime = timestamp;
 
-  // Apply rotation to cube mesh
-  //spookyMoon.rotation.y += delta * 0.0006;
-  //spookyMoon.rotation.x += (delta * 0.0004)*Math.PI;
+  // Apply rotations to spookyMoon and the cube ( left overs from boilerplate)
+  spookyMoon.rotation.y += delta * 0.0006;
+  spookyMoon.rotation.x += (delta * 0.0004)*Math.PI;
   //spookyMoon.rotation.y += delta * 0.0004;
   cube.rotation.x += delta * 0.0004;
 
