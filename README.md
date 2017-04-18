@@ -3,10 +3,12 @@
 A [THREE.js][three]-based web-based VR experience for Computer Graphics Project
 
 
-#Created By
+# Created By
 
 [Alex Boyd][alexboyd]
+
 Tzvi Zeller
+
 Alec Myers
 
 [alexboyd]: https://malexanderboyd.github.com
