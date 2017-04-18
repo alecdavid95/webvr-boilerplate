@@ -154,9 +154,28 @@ function onLoad() {
   effect = new THREE.VREffect(renderer);
   effect.setSize(window.innerWidth, window.innerHeight);
 
-  // Add a repeating grid as a skybox.
+  // create sphere
+  // var spookyGeometry = new THREE.SphereGeometry(50, 200, 200);
+
+  // spooky material
+  // var spookyWoodsMaterial = new THREE.MeshBasicMaterial();
+
+  //spookyWoodsMaterial.map = THREE.ImageUtils.loadTexture('img/woods.jpg');
+  //spookyWoodsMaterial.side = THREE.BackSide;
+
+  // create mesh based on spooky geometry + material
+
+  //var spookyWoodsMesh = new THREE.Mesh(spookyGeometry, spookyWoodsMaterial);
+
+  //var spookySkyBox = new THREE.Mesh(spookyGeometry, spookyWoodsMaterial);
+  
+  // add SpookyWoods skybox
   var loader = new THREE.TextureLoader();
-  loader.load('img/box.png', onTextureLoaded);
+  loader.load('img/woods.jpg', onTextureLoaded);
+  //scene.add(spookySkyBox);
+
+  
+  // loader.load('img/woods.jpg', onTextureLoaded);
 
   // Create 3D objects.
   var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
@@ -168,6 +187,33 @@ function onLoad() {
 
   // Add cube mesh to your three.js scene
   scene.add(cube);
+
+
+  // Add Spooky Moon
+
+  var spookyMoonGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+
+  var spookyMoonMaterial = new THREE.MeshBasicMaterial();
+
+  spookyMoonMaterial.map = loader.load('img/spookyMoon.jpg');
+
+
+  var spookyMoonMesh = new THREE.Mesh(spookyMoonGeometry, spookyMoonMaterial);
+
+  // Position Spooky Moon
+
+  spookyMoonMesh.position.set(15, controls.userHeight+5, 1);
+
+  scene.add(spookyMoonMesh);
+
+
+
+
+
+
+
+
+
 
   window.addEventListener('resize', onResize, true);
   window.addEventListener('vrdisplaypresentchange', onResize, true);
@@ -196,14 +242,13 @@ function onLoad() {
 }
 
 function onTextureLoaded(texture) {
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set(boxSize, boxSize);
+  //texture.wrapS = THREE.RepeatWrapping;
+  //texture.repeat.set(boxSize, boxSize);
 
-  var geometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
+  var geometry = new THREE.SphereGeometry(boxSize, boxSize, boxSize);
   var material = new THREE.MeshBasicMaterial({
     map: texture,
-    color: 0x01BE00,
+    color: 0x131642,
     side: THREE.BackSide
   });
 
@@ -260,7 +305,7 @@ function setupStage() {
 function setStageDimensions(stage) {
   // Make the skybox fit the stage.
   var material = skybox.material;
-  scene.remove(skybox);
+ 
 
   // Size the skybox according to the size of the actual stage.
   var geometry = new THREE.BoxGeometry(stage.sizeX, boxSize, stage.sizeZ);
@@ -268,7 +313,7 @@ function setStageDimensions(stage) {
 
   // Place it on the floor.
   skybox.position.y = boxSize/2;
-  scene.add(skybox);
+ // scene.add(skybox);
 
   // Place the cube in the middle of the scene, at user height.
   cube.position.set(0, controls.userHeight, 0);
