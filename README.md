@@ -9,7 +9,7 @@ A [THREE.js][three]-based web-based VR experience for Computer Graphics Project
 Tzvi Zeller
 Alec Myers
 
-[alexboyd] https://malexanderboyd.github.com
+[alexboyd]: https://malexanderboyd.github.com
 
 
 
@@ -48,6 +48,7 @@ for a [live demo][demo].
 [ui]: https://github.com/googlevr/webvr-ui
 [spec]: https://w3c.github.io/webvr/
 [demo]: https://borismus.github.io/webvr-boilerplate/
+
 
 ## Getting started
 
