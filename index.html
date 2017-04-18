@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-<title>Web VR boilerplate</title>
+<title>Escape!</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
 <meta name="mobile-web-app-capable" content="yes">
@@ -123,6 +123,7 @@ var boxSize = 5;
 // Various global THREE.Objects.
 var scene;
 var cube;
+var spookyMoon;
 var controls;
 var effect;
 var camera;
@@ -191,26 +192,7 @@ function onLoad() {
 
   // Add Spooky Moon
 
-  var spookyMoonGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-
-  var spookyMoonMaterial = new THREE.MeshBasicMaterial();
-
-  spookyMoonMaterial.map = loader.load('img/spookyMoon.jpg');
-
-
-  var spookyMoonMesh = new THREE.Mesh(spookyMoonGeometry, spookyMoonMaterial);
-
-  // Position Spooky Moon
-
-  spookyMoonMesh.position.set(15, controls.userHeight+5, 1);
-
-  scene.add(spookyMoonMesh);
-
-
-
-
-
-
+  loader.load('img/spookyMoon.jpg', onSpookyMoonTextureLoaded);
 
 
 
@@ -262,6 +244,25 @@ function onTextureLoaded(texture) {
   setupStage();
 }
 
+function onSpookyMoonTextureLoaded(texture)
+{
+
+  var spookyMoonGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+
+  var spookyMoonMaterial = new THREE.MeshBasicMaterial({
+    map: texture,
+    color: 0x1d2430,
+  });
+
+  spookyMoon = new THREE.Mesh(spookyMoonGeometry, spookyMoonMaterial);
+
+  // Position Spooky Moon
+
+  spookyMoon.position.set(0, controls.userHeight, 2);
+
+  scene.add(spookyMoon);
+
+}
 
 
 // Request animation frame loop function
@@ -270,7 +271,10 @@ function animate(timestamp) {
   lastRenderTime = timestamp;
 
   // Apply rotation to cube mesh
-  cube.rotation.y += delta * 0.0006;
+  //spookyMoon.rotation.y += delta * 0.0006;
+  spookyMoon.rotation.x += (delta * 0.0004)*Math.PI;
+  spookyMoon.rotation.y += delta * 0.0004;
+  cube.rotation.x += delta * 0.0004;
 
   // Only update controls if we're presenting.
   if (vrButton.isPresenting()) {
@@ -313,7 +317,7 @@ function setStageDimensions(stage) {
 
   // Place it on the floor.
   skybox.position.y = boxSize/2;
- // scene.add(skybox);
+  scene.add(skybox);
 
   // Place the cube in the middle of the scene, at user height.
   cube.position.set(0, controls.userHeight, 0);
