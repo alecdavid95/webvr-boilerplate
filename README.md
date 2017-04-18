@@ -14,6 +14,9 @@ Alec Myers
 [alexboyd]: https://malexanderboyd.github.com
 
 
+# Thanks
+
+
 Project based off webvr-boilerplate.
 
 Art assets used from deviantArt users.
