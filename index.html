@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-<title>Web VR boilerplate</title>
+<title>Escape!</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
 <meta name="mobile-web-app-capable" content="yes">
@@ -123,6 +123,7 @@ var boxSize = 5;
 // Various global THREE.Objects.
 var scene;
 var cube;
+var spookyMoon;
 var controls;
 var effect;
 var camera;
@@ -154,9 +155,28 @@ function onLoad() {
   effect = new THREE.VREffect(renderer);
   effect.setSize(window.innerWidth, window.innerHeight);
 
-  // Add a repeating grid as a skybox.
+  // create sphere
+  // var spookyGeometry = new THREE.SphereGeometry(50, 200, 200);
+
+  // spooky material
+  // var spookyWoodsMaterial = new THREE.MeshBasicMaterial();
+
+  //spookyWoodsMaterial.map = THREE.ImageUtils.loadTexture('img/woods.jpg');
+  //spookyWoodsMaterial.side = THREE.BackSide;
+
+  // create mesh based on spooky geometry + material
+
+  //var spookyWoodsMesh = new THREE.Mesh(spookyGeometry, spookyWoodsMaterial);
+
+  //var spookySkyBox = new THREE.Mesh(spookyGeometry, spookyWoodsMaterial);
+  
+  // add SpookyWoods skybox
   var loader = new THREE.TextureLoader();
-  loader.load('img/box.png', onTextureLoaded);
+  loader.load('img/woods.jpg', onTextureLoaded);
+  //scene.add(spookySkyBox);
+
+  
+  // loader.load('img/woods.jpg', onTextureLoaded);
 
   // Create 3D objects.
   var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
@@ -168,6 +188,28 @@ function onLoad() {
 
   // Add cube mesh to your three.js scene
   scene.add(cube);
+
+
+  // Add Spooky Moon
+
+
+  var spookyMoonGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+
+  var spookyMoonMaterial = new THREE.MeshBasicMaterial({
+    color: 0x1d2430,
+  });
+
+  spookyMoonMaterial.map = loader.load('img/spookyMoon.png');
+
+  spookyMoon = new THREE.Mesh(spookyMoonGeometry, spookyMoonMaterial);
+
+    // Position Spooky Moon
+
+  spookyMoon.position.set(0, controls.userHeight, 2);
+
+  scene.add(spookyMoon);
+
+
 
   window.addEventListener('resize', onResize, true);
   window.addEventListener('vrdisplaypresentchange', onResize, true);
@@ -196,14 +238,13 @@ function onLoad() {
 }
 
 function onTextureLoaded(texture) {
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set(boxSize, boxSize);
+  //texture.wrapS = THREE.RepeatWrapping;
+  //texture.repeat.set(boxSize, boxSize);
 
-  var geometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
+  var geometry = new THREE.SphereGeometry(boxSize, boxSize, boxSize);
   var material = new THREE.MeshBasicMaterial({
     map: texture,
-    color: 0x01BE00,
+    color: 0x131642,
     side: THREE.BackSide
   });
 
@@ -218,14 +259,16 @@ function onTextureLoaded(texture) {
 }
 
 
-
 // Request animation frame loop function
 function animate(timestamp) {
   var delta = Math.min(timestamp - lastRenderTime, 500);
   lastRenderTime = timestamp;
 
-  // Apply rotation to cube mesh
-  cube.rotation.y += delta * 0.0006;
+  // Apply rotations to spookyMoon and the cube ( left overs from boilerplate)
+  spookyMoon.rotation.y += delta * 0.0006;
+  spookyMoon.rotation.x += (delta * 0.0004)*Math.PI;
+  //spookyMoon.rotation.y += delta * 0.0004;
+  cube.rotation.x += delta * 0.0004;
 
   // Only update controls if we're presenting.
   if (vrButton.isPresenting()) {
@@ -260,7 +303,7 @@ function setupStage() {
 function setStageDimensions(stage) {
   // Make the skybox fit the stage.
   var material = skybox.material;
-  scene.remove(skybox);
+ 
 
   // Size the skybox according to the size of the actual stage.
   var geometry = new THREE.BoxGeometry(stage.sizeX, boxSize, stage.sizeZ);
